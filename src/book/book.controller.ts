@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseInterceptors, UseFilters, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseInterceptors, UseFilters, UseGuards, Query } from '@nestjs/common';
 import { BookService } from './book.service';
 import { CreateBookDto } from './dto/create-book.dto';
 import { UpdateBookDto } from './dto/update-book.dto';
@@ -6,6 +6,7 @@ import { ApiTags } from '@nestjs/swagger';
 import { ResponseInterceptor } from '../common/interceptor/response.interceptor';
 import { HttpExceptionFilter } from '../common/filters/http-exception.filter';
 import { ApiKeyGuard } from '../common/guard/api-key.guard';
+import { PaginationDto } from '../common/dtos/pagination.dto';
 
 @ApiTags('Books')
 @Controller('book')
@@ -21,8 +22,8 @@ export class BookController {
   }
 
   @Get()
-  async findAll() {
-    return await this.bookService.findAll();
+  async findAll(@Query() paginationDto: PaginationDto) {
+    return await this.bookService.findAll(paginationDto);
   }
 
   @Get(':id')

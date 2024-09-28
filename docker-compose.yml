@@ -9,15 +9,15 @@ services:
     volumes:
       - mongo-data:/data/db
 
-  app:
-    build: .
-    container_name: nest_js_app
-    ports:
-      - "3000:3000"
-    environment:
-      - MONGO_URL=mongodb://mongodb:27017/library
-    depends_on:
-      - mongodb
+  # app:
+  #   build: .
+  #   container_name: nest_js_app
+  #   ports:
+  #     - "3000:3000"
+  #   environment:
+  #     - MONGO_URL=mongodb://mongodb:27017/library
+  #   depends_on:
+  #     - mongodb
 
 volumes:
   mongo-data:
