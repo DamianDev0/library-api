@@ -20,9 +20,11 @@ const mockBookModel = {
       save: jest.fn().mockResolvedValue(mockBook),
     };
   }),
+
   find: jest.fn().mockReturnValue({
     exec: jest.fn().mockResolvedValue([mockBook]),
   }),
+  
   findById: jest.fn().mockReturnValue({
     exec: jest.fn().mockResolvedValue(mockBook),
   }),
@@ -96,10 +98,13 @@ describe('BookService', () => {
       expect(model.findByIdAndDelete).toHaveBeenCalledWith(id);
     });
   });
-
   describe('findAll', () => {
     it('should return an array of books', async () => {
-      const result = await service.findAll();
+      const paginationDto ={
+        page: 1,
+        limit: 10
+      }
+      const result = await service.findAll(paginationDto); 
       expect(result).toEqual([mockBook]);
       expect(model.find).toHaveBeenCalled();
     });
