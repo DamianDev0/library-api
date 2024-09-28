@@ -1,5 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { Model, Document } from 'mongoose';
+import { PaginationDto } from '../dtos/pagination.dto';
 
 @Injectable()
 export class BaseService<T extends Document> {
@@ -9,8 +10,13 @@ export class BaseService<T extends Document> {
     return this.model.create(createDto);
   }
 
-  async findAll(): Promise<T[]> {
-    return this.model.find().exec();
+  async findAll(paginationDto: PaginationDto): Promise<T[]> {
+
+    const { page = 1, limit = 10 } = paginationDto;
+
+    const startIndex = (page - 1) * limit;
+
+    return this.model.find().skip(startIndex).limit(limit).exec();
   }
 
   async findById(id: string): Promise<T> {
