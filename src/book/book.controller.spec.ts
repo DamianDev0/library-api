@@ -38,12 +38,13 @@ describe('BookController', () => {
 
   describe('findAll', () => {
     it('should return an array of books', async () => {
-      const result = await bookController.findAll();
+      const paginationDto = { page: 1, limit: 10 }; 
+      const result = await bookController.findAll(paginationDto); 
       expect(result).toEqual(['book1', 'book2']);
-      expect(bookService.findAll).toHaveBeenCalled(); 
+      expect(bookService.findAll).toHaveBeenCalledWith(paginationDto); 
     });
   });
-
+  
   describe('findOne', () => {
     it('should return a single book by id', async () => {
       const result = await bookController.findOne('60d5ec49f0d3e212f06b30bc');

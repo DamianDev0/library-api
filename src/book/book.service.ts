@@ -72,7 +72,6 @@ export class BookService extends BaseService<Book> {
     async findByAuthor(author: string): Promise<Book[]> {
         const books = await this.bookModel.find({ author }).exec();
         this.validateAvailableBooks(books);
-
         return books;
     }
 
