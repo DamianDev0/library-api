@@ -2,6 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { BookController } from './book.controller';
 import { BookService } from './book.service';
 import { CreateBookDto } from './dto/create-book.dto'
+import { UpdateBookDto } from './dto/update-book.dto';
 
 describe('BookController', () => {
   let bookController: BookController;
@@ -17,7 +18,7 @@ describe('BookController', () => {
             findAll: jest.fn(() => ['book1', 'book2']),
             findById: jest.fn((id: string) => `book ${id}`),
             create: jest.fn((createBookDto: CreateBookDto) => createBookDto),
-            update: jest.fn((id: string, updateBookDto: CreateBookDto) => ({
+            update: jest.fn((id: string, updateBookDto: UpdateBookDto) => ({
               id,
               ...updateBookDto,
             })),
